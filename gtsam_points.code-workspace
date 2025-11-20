@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../gtsam_PeterCdev"
+		},
+		{
+			"path": "../gtsam_spaceNav"
+		}
+	],
+	"settings": {}
+}
