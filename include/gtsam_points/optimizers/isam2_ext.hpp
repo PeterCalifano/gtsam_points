@@ -27,6 +27,7 @@
 #include <gtsam/nonlinear/ISAM2UpdateParams.h>
 #include <gtsam/nonlinear/NonlinearFactorGraph.h>
 
+#include <gtsam_points/util/gtsam_migration.hpp>
 #include <gtsam_points/optimizers/isam2_result_ext.hpp>
 
 #include <chrono>
@@ -158,9 +159,9 @@ public:
     const NonlinearFactorGraph& newFactors = NonlinearFactorGraph(),
     const Values& newTheta = Values(),
     const FactorIndices& removeFactorIndices = FactorIndices(),
-    const std::optional<FastMap<Key, int> >& constrainedKeys = {},
-    const std::optional<FastList<Key> >& noRelinKeys = {},
-    const std::optional<FastList<Key> >& extraReelimKeys = {},
+    const optional<FastMap<Key, int> >& constrainedKeys = {},
+    const optional<FastList<Key> >& noRelinKeys = {},
+    const optional<FastList<Key> >& extraReelimKeys = {},
     bool force_relinearize = false);
 
   /**

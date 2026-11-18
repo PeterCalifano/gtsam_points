@@ -6,6 +6,10 @@
 #include <gtsam/geometry/Pose3.h>
 #include <gtsam/geometry/Similarity3.h>
 #include <gtsam/nonlinear/NonlinearFactor.h>
+#if __has_include(<gtsam/nonlinear/NoiseModelFactorN.h>)
+#include <gtsam/nonlinear/NoiseModelFactorN.h>
+#endif
+#include <gtsam_points/util/gtsam_migration.hpp>
 
 namespace gtsam_points {
 
@@ -28,8 +32,8 @@ public:
   virtual gtsam::Vector evaluateError(
     const gtsam::Similarity3& x1,
     const gtsam::Pose3& x2,
-    gtsam::OptionalMatrixType H1 = nullptr,
-    gtsam::OptionalMatrixType H2 = nullptr) const override {
+    OptionalMatrixType H1 = NoneValue,
+    OptionalMatrixType H2 = NoneValue) const override {
     //
     if (!H1 || !H2) {
       gtsam::Pose3 delta = scaled_transform(x1).between(x2);

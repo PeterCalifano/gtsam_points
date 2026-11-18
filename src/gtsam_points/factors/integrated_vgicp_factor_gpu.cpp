@@ -121,10 +121,10 @@ double IntegratedVGICPFactorGPU::inlier_fraction() const {
 
 gtsam::NonlinearFactor::shared_ptr IntegratedVGICPFactorGPU::clone() const {
   if (is_binary) {
-    return gtsam::make_shared<IntegratedVGICPFactorGPU>(keys()[0], keys()[1], target, source, nullptr, nullptr);
+    return gtsam_points::make_shared_ptr<IntegratedVGICPFactorGPU>(keys()[0], keys()[1], target, source, nullptr, nullptr);
   }
 
-  return gtsam::make_shared<IntegratedVGICPFactorGPU>(
+  return gtsam_points::make_shared_ptr<IntegratedVGICPFactorGPU>(
     gtsam::Pose3(fixed_target_pose.cast<double>().matrix()),
     keys()[0],
     target,
@@ -182,7 +182,7 @@ double IntegratedVGICPFactorGPU::error(const gtsam::Values& values) const {
   return err;
 }
 
-std::shared_ptr<gtsam::GaussianFactor> IntegratedVGICPFactorGPU::linearize(const gtsam::Values& values) const {
+gtsam::GaussianFactor::shared_ptr IntegratedVGICPFactorGPU::linearize(const gtsam::Values& values) const {
   linearized = true;
   linearization_point = calc_delta(values);
 

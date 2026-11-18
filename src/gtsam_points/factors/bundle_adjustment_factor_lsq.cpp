@@ -3,6 +3,7 @@
 
 #include <gtsam_points/factors/bundle_adjustment_factor_lsq.hpp>
 
+#include <Eigen/Eigenvalues>
 #include <gtsam/geometry/Pose3.h>
 #include <gtsam/linear/HessianFactor.h>
 #include <gtsam_points/util/expressions.hpp>
@@ -120,7 +121,7 @@ double LsqBundleAdjustmentFactor::error(const gtsam::Values& c) const {
   return sum_errors;
 }
 
-std::shared_ptr<gtsam::GaussianFactor> LsqBundleAdjustmentFactor::linearize(const gtsam::Values& c) const {
+gtsam::GaussianFactor::shared_ptr LsqBundleAdjustmentFactor::linearize(const gtsam::Values& c) const {
   update_global_distribution(c);
 
   double sum_errors = 0.0;
@@ -184,7 +185,7 @@ std::shared_ptr<gtsam::GaussianFactor> LsqBundleAdjustmentFactor::linearize(cons
     b_k -= H2.transpose() * n_k * e3;
   }
 
-  return gtsam::make_shared<gtsam::HessianFactor>(keys_, Hs, bs, sum_errors);
+  return gtsam_points::make_shared_ptr<gtsam::HessianFactor>(keys_, Hs, bs, sum_errors);
 }
 
 void LsqBundleAdjustmentFactor::update_global_distribution(const gtsam::Values& values) const {

@@ -5,6 +5,10 @@
 
 #include <gtsam/geometry/Pose3.h>
 #include <gtsam/nonlinear/NonlinearFactor.h>
+#if __has_include(<gtsam/nonlinear/NoiseModelFactorN.h>)
+#include <gtsam/nonlinear/NoiseModelFactorN.h>
+#endif
+#include <gtsam_points/util/gtsam_migration.hpp>
 
 namespace gtsam_points {
 
@@ -29,9 +33,9 @@ public:
     const gtsam::Pose3& xi,
     const gtsam::Pose3& xj,
     const gtsam::Pose3& Tij,
-    gtsam::OptionalMatrixType H_xi = nullptr,
-    gtsam::OptionalMatrixType H_xj = nullptr,
-    gtsam::OptionalMatrixType H_Tij = nullptr) const override {
+    OptionalMatrixType H_xi = NoneValue,
+    OptionalMatrixType H_xj = NoneValue,
+    OptionalMatrixType H_Tij = NoneValue) const override {
     //
     if (H_xi && H_xj && H_Tij) {
       const gtsam::Pose3 delta = xi.between(xj);      // (xi^-1 * xj)
